@@ -1,0 +1,363 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://Mouse_Curser.png" type="Texture" id=2]
+[ext_resource path="res://Background.png" type="Texture" id=3]
+[ext_resource path="res://Grundschrift-Regular.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://Ground.png" type="Texture" id=5]
+[ext_resource path="res://SF_Cartoonist_Hand.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://furble/Furble.png" type="Texture" id=7]
+[ext_resource path="res://Play_Button.png" type="Texture" id=8]
+[ext_resource path="res://Quit_Button.png" type="Texture" id=9]
+[ext_resource path="res://On_Button.png" type="Texture" id=10]
+[ext_resource path="res://Off_Button.png" type="Texture" id=11]
+[ext_resource path="res://furble/Furble_Dead.png" type="Texture" id=12]
+[ext_resource path="res://Menu_Button.png" type="Texture" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0.0941176, 0.615686, 0.705882, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0.0941176, 0.615686, 0.705882, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 48.0124, 3.209, 0, 0, 0, 0, 974.427, 1.84863 )
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 512, 64 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 32, 320 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 512, 16 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 256
+outline_size = 4
+outline_color = Color( 0.34902, 0.388235, 0.392157, 1 )
+extra_spacing_char = 7
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Play_Me"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=9]
+size = 46
+outline_size = 2
+outline_color = Color( 0.341176, 0.341176, 0.341176, 1 )
+extra_spacing_char = 6
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 128
+outline_size = 4
+outline_color = Color( 0.976471, 0.435294, 0.47451, 1 )
+extra_spacing_char = 7
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 42
+outline_size = 1
+outline_color = Color( 0.341176, 0.835294, 0.847059, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "Play_Me"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+mouse_curser = ExtResource( 2 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+
+[node name="CountTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="KillCount" type="Label" parent="."]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.913725, 0.878431, 1 )
+text = "Furbles Desimated: 0"
+
+[node name="TimerCount" type="Label" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -206.0
+margin_top = 10.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.984314, 0.913725, 0.878431, 1 )
+text = "Seconds: 0"
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 3 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 48.0124, 3.209 )
+rotation = -0.00146824
+
+[node name="Ground" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -64.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Ground"]
+position = Vector2( 0, 64 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D"]
+position = Vector2( 512, 0 )
+shape = SubResource( 4 )
+
+[node name="Furble_Root" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Wall_Left" type="StaticBody2D" parent="."]
+position = Vector2( -32, 300 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Left"]
+shape = SubResource( 5 )
+
+[node name="Wall_Right" type="StaticBody2D" parent="."]
+position = Vector2( 1056, 300 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Right"]
+shape = SubResource( 5 )
+
+[node name="Lose_Area" type="Area2D" parent="."]
+position = Vector2( 512, -100 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lose_Area"]
+shape = SubResource( 6 )
+
+[node name="Main_Menu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Main_Menu"]
+margin_left = 428.402
+margin_top = 4.75998
+margin_right = 987.402
+margin_bottom = 284.76
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 0.631373, 0.631373, 0.631373, 1 )
+text = "Furble"
+
+[node name="Sprite" type="Sprite" parent="Main_Menu"]
+self_modulate = Color( 0.921569, 0.756863, 0.721569, 1 )
+position = Vector2( 193.574, 147.561 )
+rotation = -0.244284
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="Main_Menu"]
+self_modulate = Color( 0.721569, 0.85098, 0.921569, 1 )
+position = Vector2( 310.988, 238.001 )
+rotation = 0.252263
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite2" type="Sprite" parent="Main_Menu"]
+self_modulate = Color( 0.815686, 0.921569, 0.721569, 1 )
+position = Vector2( 171.361, 288.775 )
+rotation = -0.244284
+scale = Vector2( 1.7, 1.7 )
+texture = ExtResource( 7 )
+
+[node name="Play" type="TextureButton" parent="Main_Menu"]
+self_modulate = Color( 0.960784, 0.952941, 0.662745, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 184.575
+margin_top = -30.6799
+margin_right = 440.575
+margin_bottom = 97.3201
+rect_scale = Vector2( 1.16659, 1.16659 )
+texture_normal = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main_Menu/Play"]
+autoplay = "Play_Me"
+anims/Play_Me = SubResource( 8 )
+
+[node name="Quit" type="TextureButton" parent="Main_Menu"]
+self_modulate = Color( 0.72549, 0.92549, 0.690196, 1 )
+margin_left = 772.71
+margin_top = 418.882
+margin_right = 1028.71
+margin_bottom = 546.882
+rect_scale = Vector2( 0.8, 0.8 )
+texture_normal = ExtResource( 9 )
+
+[node name="Label2" type="Label" parent="Main_Menu"]
+margin_left = 412.535
+margin_top = 298.295
+margin_right = 650.535
+margin_bottom = 354.295
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.482353, 0.47451, 0.47451, 1 )
+text = "Sound FXs"
+
+[node name="On" type="TextureButton" parent="Main_Menu"]
+self_modulate = Color( 0.94902, 0.6, 0.6, 1 )
+margin_left = 380.802
+margin_top = 372.868
+margin_right = 508.802
+margin_bottom = 500.868
+texture_normal = ExtResource( 10 )
+
+[node name="Off" type="TextureButton" parent="Main_Menu"]
+self_modulate = Color( 0.94902, 0.6, 0.6, 0.501961 )
+margin_left = 542.642
+margin_top = 371.282
+margin_right = 670.642
+margin_bottom = 499.282
+rect_scale = Vector2( 0.7, 0.7 )
+texture_normal = ExtResource( 11 )
+
+[node name="Game_Over" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Label3" type="Label" parent="Game_Over"]
+margin_left = 448.444
+margin_top = 9.77048
+margin_right = 1007.44
+margin_bottom = 289.77
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 0.576471, 0.576471, 1 )
+text = "Game Over"
+
+[node name="Score" type="Label" parent="Game_Over"]
+margin_left = 469.321
+margin_top = 151.987
+margin_right = 888.321
+margin_bottom = 256.987
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color = Color( 0.52549, 0.945098, 1, 1 )
+text = "You decimated 0 furbles
+ in 0 seconds!"
+
+[node name="Sprite4" type="Sprite" parent="Game_Over"]
+self_modulate = Color( 0.921569, 0.756863, 0.721569, 1 )
+position = Vector2( 193.574, 147.561 )
+rotation = -0.244284
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+
+[node name="Sprite6" type="Sprite" parent="Game_Over"]
+self_modulate = Color( 0.721569, 0.85098, 0.921569, 1 )
+position = Vector2( 310.988, 238.001 )
+rotation = 0.252263
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 12 )
+
+[node name="Sprite5" type="Sprite" parent="Game_Over"]
+self_modulate = Color( 0.815686, 0.921569, 0.721569, 1 )
+position = Vector2( 171.361, 288.775 )
+rotation = -0.244284
+scale = Vector2( 1.7, 1.7 )
+texture = ExtResource( 12 )
+
+[node name="Play2" type="TextureButton" parent="Game_Over"]
+self_modulate = Color( 0.960784, 0.952941, 0.662745, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 194.596
+margin_top = -30.6799
+margin_right = 450.596
+margin_bottom = 97.3201
+rect_scale = Vector2( 1.16659, 1.16659 )
+texture_normal = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game_Over/Play2"]
+autoplay = "Play_Me"
+anims/Play_Me = SubResource( 12 )
+
+[node name="Menu" type="TextureButton" parent="Game_Over"]
+self_modulate = Color( 0.968627, 0.623529, 0.623529, 1 )
+margin_left = 430.907
+margin_top = 280.591
+margin_right = 686.907
+margin_bottom = 408.591
+texture_normal = ExtResource( 13 )
+
+[node name="Quit2" type="TextureButton" parent="Game_Over"]
+self_modulate = Color( 0.72549, 0.92549, 0.690196, 1 )
+margin_left = 772.71
+margin_top = 418.882
+margin_right = 1028.71
+margin_bottom = 546.882
+rect_scale = Vector2( 0.8, 0.8 )
+texture_normal = ExtResource( 9 )
+
+[connection signal="timeout" from="CountTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="body_entered" from="Lose_Area" to="." method="_on_Lose_Area_body_entered"]
+[connection signal="pressed" from="Main_Menu/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Main_Menu/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Main_Menu/On" to="." method="_on_On_pressed"]
+[connection signal="pressed" from="Main_Menu/Off" to="." method="_on_Off_pressed"]
+[connection signal="pressed" from="Game_Over/Play2" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Game_Over/Menu" to="." method="_on_Menu_pressed"]
+[connection signal="pressed" from="Game_Over/Quit2" to="." method="_on_Quit_pressed"]

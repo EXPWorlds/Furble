@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/scream.wav-7467476132360a2e875c3a0b35e14783.sample"
+
+[deps]
+
+source_file="res://furble/scream.wav"
+dest_files=[ "res://.import/scream.wav-7467476132360a2e875c3a0b35e14783.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
