@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Camera_Shake/Screen_Shaker.gd" type="Script" id=1]
+
+[node name="Screen_Shaker" type="Node2D" groups=[
+"Screen_Shaker",
+]]
+script = ExtResource( 1 )
+
+[node name="Duration" type="Timer" parent="."]
+
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]

@@ -1,27 +1,52 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://furble/furble.gd" type="Script" id=1]
-[ext_resource path="res://furble/Furble.png" type="Texture" id=2]
-[ext_resource path="res://furble/scream.wav" type="AudioStream" id=3]
+[ext_resource path="res://furble/new_arraymesh.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://furble/Furble.png" type="Texture" id=3]
+[ext_resource path="res://furble/Pop.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 50.0
+radius = 52.327
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 70.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 200.0
+
+[node name="Furble" type="RigidBody2D"]
 input_pickable = true
 gravity_scale = 5.0
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="Sprite" type="MeshInstance2D" parent="."]
+position = Vector2( 2.58469, 5.16943 )
+mesh = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Scream_SFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-volume_db = -9.0
+stream = ExtResource( 4 )
+pitch_scale = 0.5
 
+[node name="PickArea" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickArea"]
+visible = false
+shape = SubResource( 2 )
+
+[node name="ForceField" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForceField"]
+shape = SubResource( 3 )
+
+[connection signal="input_event" from="." to="." method="_on_RigidBody2D_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_RigidBody2D_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_RigidBody2D_mouse_exited"]
 [connection signal="finished" from="Scream_SFX" to="." method="_on_AudioStreamPlayer_finished"]
+[connection signal="input_event" from="PickArea" to="." method="_on_Area2D_input_event"]

@@ -17,11 +17,16 @@ _global_script_class_icons={
 
 config/name="Furble"
 run/main_scene="res://Main.tscn"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 
 [autoload]
 
 Furble="*res://global.gd"
+
+[display]
+
+window/size/resizable=false
 
 [input]
 
